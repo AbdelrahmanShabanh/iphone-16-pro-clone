@@ -3,7 +3,6 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-
 gsap.registerPlugin(ScrollTrigger);
 
 const CameraHero = () => {
@@ -16,6 +15,48 @@ const CameraHero = () => {
   const container = useRef(null);
   const frameRef = useRef(null);
   const paragraphRef = useRef(null);
+
+  // State for responsive image
+  const [imageSrc, setImageSrc] = useState(
+    "/assets/images/hero_camera_screen_zoom__bltohecbqbv6_xlarge.jpg"
+  );
+
+  // State for frame visibility
+  const [showFrame, setShowFrame] = useState(true);
+
+  // State for initial scale based on screen size
+  const [initialScale, setInitialScale] = useState(2.5);
+
+  // State for final position based on screen size
+  const [finalX, setFinalX] = useState(0);
+
+  // Handle responsive image switching and frame visibility
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 760) {
+        setImageSrc("/assets/images/hero_camera__d95g9w2nnyye_xsmall_2x.jpg");
+        setShowFrame(false);
+        setInitialScale(1); // Smaller initial scale for mobile
+        setFinalX(0); // Center the final image on mobile
+      } else {
+        setImageSrc(
+          "/assets/images/hero_camera_screen_zoom__bltohecbqbv6_xlarge.jpg"
+        );
+        setShowFrame(true);
+        setInitialScale(2.5); // Larger initial scale for desktop
+        setFinalX(0); // Keep centered on desktop too
+      }
+    };
+
+    // Set initial image and frame visibility
+    handleResize();
+
+    // Add event listener
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   useGSAP(
     () => {
       const tl = gsap.timeline({
@@ -36,10 +77,10 @@ const CameraHero = () => {
         },
         {
           clipPath: "polygon(0% 0%, 100% 0%, 120% 100%, 0% 100%)",
-          scale: 0.52,
+          scale: 0.56,
           ease: "power2.out",
           duration: 1,
-          x: 0,
+          x: finalX,
         }
       );
       tl.fromTo(
@@ -119,7 +160,6 @@ const CameraHero = () => {
             y: 0,
             duration: 1.8,
             ease: "power2.out",
-          
           }
         );
       }
@@ -185,27 +225,29 @@ const CameraHero = () => {
         className="flex absolute inset-0 z-0 justify-center w-full h-full"
       >
         <img
-          src="/assets/images/hero_camera_screen_zoom__bltohecbqbv6_xlarge.jpg"
+          src={imageSrc}
           alt=""
-          className="object-cover object-center w-full h-full origin-center"
+          className="object-cover object-center w-full h-full origin-center sm:translate-x-11"
         />
       </div>
       {/* iPhone frame - appears at the end */}
-      <div
-        id="iphone-frame"
-        ref={frameRef}
-        className="flex absolute inset-0 z-20 justify-center items-center opacity-0"
-        style={{
-          clipPath: "polygon(5% 10%, 95% 10%, 95% 90%, 5% 90%)",
-        }}
-      >
-        <img
+      {showFrame && (
+        <div
+          id="iphone-frame"
           ref={frameRef}
-          src="/assets/images/hero_camera_hw__l3esjbq1awy2_xlarge.png"
-          alt="iPhone Frame"
-          className="object-contain w-full h-full"
-        />
-      </div>
+          className="flex absolute inset-0 z-20 justify-center items-center opacity-0"
+          // style={{
+          //   clipPath: "polygon(5% 10%, 95% 10%, 95% 90%, 5% 90%)",
+          // }}
+        >
+          <img
+            ref={frameRef}
+            src="/assets/images/hero_camera_hw__l3esjbq1awy2_xlarge.png"
+            alt="iPhone Frame"
+            className="object-contain w-full h-full"
+          />
+        </div>
+      )}
       <div
         id="caption-container"
         className="flex absolute inset-0 z-50 flex-col justify-center items-center"
@@ -224,20 +266,20 @@ const CameraHero = () => {
       {/* Paragraphs container - appears at the end */}
       <div
         ref={paragraphRef}
-        className="flex absolute right-0 left-0 bottom-4 z-40 justify-between px-8 opacity-0 lg:px-16"
+        className="flex absolute right-0 left-0 bottom-4 z-40 flex-col justify-between px-4 opacity-0 sm:flex-row sm:px-8 lg:px-16"
       >
         {/* Left paragraph */}
-        <div className="max-w-md">
-          <p className="text-[#af9b91] text-sm sm:text-base leading-relaxed">
+        <div className="mb-4 max-w-full sm:max-w-md sm:mb-0">
+          <p className="text-[#af9b91] text-xs sm:text-sm md:text-base leading-relaxed">
             iPhone 16 Pro adds a second 48MP camera to the Pro camera system.
             The new 48MP Ultra Wide camera has a more advanced quad-pixel sensor
-            for super-high-resolution 48MP 
+            for super-high-resolution 48MP
           </p>
         </div>
 
         {/* Right paragraph */}
-        <div className="max-w-md">
-          <p className="text-[#af9b91] text-sm sm:text-base leading-relaxed">
+        <div className="max-w-full sm:max-w-md">
+          <p className="text-[#af9b91] text-xs sm:text-sm md:text-base leading-relaxed">
             So you can capture a mesmerizing new level of detail in macro photos
             and sweeping, wide-angle shots.
           </p>

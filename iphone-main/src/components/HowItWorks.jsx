@@ -15,7 +15,6 @@ const MODEL_METRICS = {
   "iPhone 14 Pro Max": { gpu: "30% faster", cpu: "40% faster" },
   "iPhone 15 Pro": { gpu: "20% faster", cpu: "20% faster" },
   "iPhone 15 Pro Max": { gpu: "20% faster", cpu: "20% faster" },
-  
 };
 
 const HowItWorks = () => {
@@ -23,19 +22,19 @@ const HowItWorks = () => {
   const [model, setModel] = useState("iPhone 12 Pro");
 
   useGSAP(() => {
-     gsap.set("#gaming-sub", { opacity: 0, y: 24 });
+    gsap.set("#gaming-sub", { opacity: 0, y: 24 });
 
-      gsap.to("#gaming-sub", {
-        opacity: 1,
-        y: 0,
-        duration: 0.9,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: "#controller-section",
-          start: "top 95%",
-          toggleActions: "play none none reverse",
-        },
-      });
+    gsap.to("#gaming-sub", {
+      opacity: 1,
+      y: 0,
+      duration: 0.9,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: "#controller-section",
+        start: "top 95%",
+        toggleActions: "play none none reverse",
+      },
+    });
     gsap.from("#chip", {
       scrollTrigger: {
         trigger: "#chip",
@@ -143,7 +142,10 @@ const HowItWorks = () => {
         </div>
 
         {/* Controller image with centered big title overlay */}
-        <div id="controller-section" className="flex flex-col items-center mt-16 w-full">
+        <div
+          id="controller-section"
+          className="flex flex-col items-center mt-16 w-full"
+        >
           <div className="relative w-full max-w-7xl">
             <img
               src="/assets/images/con1.jpg"
@@ -155,14 +157,11 @@ const HowItWorks = () => {
               <br /> <span id="gaming-sub">In a whole new light.</span>
             </h3>
           </div>
-
-         
-         
         </div>
 
-        <div className="hiw-text-container">
-          <div className="flex flex-col flex-1 justify-center">
-            <p className="hiw-text g_fadeIn">
+        <div className="flex flex-col gap-8 justify-between items-start px-4 mt-[8.5rem] md:gap-24 md:flex-row sm:px-8 lg:px-16 md:mt-0">
+          <div className="flex flex-col flex-1 justify-center space-y-4 md:space-y-6">
+            <p className="text-base font-normal leading-relaxed sm:text-lg md:text-xl text-gray md:font-semibold g_fadeIn">
               Gaming. In a whole new light.
               <span className="text-white">
                 {" "}
@@ -171,7 +170,7 @@ const HowItWorks = () => {
               .
             </p>
 
-            <p className="hiw-text g_fadeIn">
+            <p className="text-base font-normal leading-relaxed sm:text-lg md:text-xl text-gray md:font-semibold g_fadeIn">
               Mobile{" "}
               <span className="text-white">
                 {" "}
@@ -181,10 +180,16 @@ const HowItWorks = () => {
             </p>
           </div>
 
-          <div className="flex flex-col flex-1 justify-center g_fadeIn">
-            <p className="hiw-text">New</p>
-            <p className="hiw-bigtext">Pro-class GPU</p>
-            <p className="hiw-text">with 6 cores</p>
+          <div className="flex flex-col flex-1 justify-center space-y-2 g_fadeIn md:space-y-4">
+            <p className="text-base font-normal sm:text-lg md:text-xl text-gray md:font-semibold">
+              New
+            </p>
+            <p className="my-2 text-2xl font-normal text-white sm:text-3xl md:text-4xl lg:text-5xl md:font-semibold">
+              Pro-class GPU
+            </p>
+            <p className="text-base font-normal sm:text-lg md:text-xl text-gray md:font-semibold">
+              with 6 cores
+            </p>
           </div>
         </div>
       </div>

@@ -25,7 +25,7 @@ import blue from "/assets/images/WhatsApp Image 2025-08-25 at 20.49.35_e79f390c.
 import white from "/assets/images/WhatsApp Image 2025-08-25 at 20.54.16_bdb6f944.jpg";
 import black from "/assets/images/WhatsApp Image 2025-08-25 at 20.56.20_87647d0a.jpg";
 import explore1 from "/assets/images/explore1.jpg";
-import explore2 from "/assets/images/explore2.jpg";
+
 import chip from "/assets/images/chip_endframe__d9ww29ytvb0i_xlarge.jpg";
 import frame from "/assets/images/frame.png";
 
@@ -52,6 +52,6 @@ export const blueImg = blue;
 export const whiteImg = white;
 export const blackImg = black;
 export const explore1Img = explore1;
-export const explore2Img = explore2;
+
 export const chipImg = chip;
 export const frameImg = frame;
